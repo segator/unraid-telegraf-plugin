@@ -2,7 +2,7 @@
 Export unraid metrics as a influxDB line Protocol.
 influxDB line protocol can be handled by telegraf using inputs.exec with dataType influx
 
-##Standalone
+## Standalone
 As a standalone binary this app will print on the stdout the influxDB protocol line with the results.
 
 ### Build
