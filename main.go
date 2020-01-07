@@ -136,12 +136,16 @@ func diskMetrics(disksPath *string) {
 	//Print disks
 	for _, disk := range disks {
 		if disk.diskName!="DEFAULT"{
-			fmt.Printf("unraid_disk_info,diskname=%s,device=%s,deviceSb=%s,model=%s,serial_no=%s value=0\n",influxNormalize(disk.diskName),influxNormalize(disk.device),influxNormalize(disk.deviceSb),influxNormalize(disk.model),influxNormalize(disk.serial))
+			devicesb := ""
+			if disk.deviceSb != ""{
+				devicesb = "deviceSb="+influxNormalize(disk.deviceSb)+","
+			}
+			fmt.Printf("unraid_disk_info,diskname=%s,device=%s,%smodel=%s,serial_no=%s value=0\n",influxNormalize(disk.diskName),influxNormalize(disk.device),devicesb,influxNormalize(disk.model),influxNormalize(disk.serial))
 		}
 	}
 }
 
-func influxNormalize(s string) interface{} {
+func influxNormalize(s string) string {
 	return strings.Replace(s," ", "\\ ",-1)
 }
 
