@@ -18,6 +18,7 @@ type disk struct{
 	model string
 	serial string
 	device string
+	deviceSb string
 	temperature int
 	status string
 }
@@ -125,6 +126,7 @@ func diskMetrics(disksPath *string) {
 				model:model,
 				serial:serial,
 				device:section.Key("device").String(),
+				deviceSb: section.Key("deviceSb").String(),
 				temperature:section.Key("temp").MustInt(-1),
 				status: section.Key("status").String(),
 			})
@@ -134,7 +136,7 @@ func diskMetrics(disksPath *string) {
 	//Print disks
 	for _, disk := range disks {
 		if disk.diskName!="DEFAULT"{
-			fmt.Printf("unraid_disk_info,diskname=%s,device=%s,model=%s,serial_no=%s value=0\n",influxNormalize(disk.diskName),influxNormalize(disk.device),influxNormalize(disk.model),influxNormalize(disk.serial))
+			fmt.Printf("unraid_disk_info,diskname=%s,device=%s,deviceSb=%s,model=%s,serial_no=%s value=0\n",influxNormalize(disk.diskName),influxNormalize(disk.device),influxNormalize(disk.deviceSb),influxNormalize(disk.model),influxNormalize(disk.serial))
 		}
 	}
 }
